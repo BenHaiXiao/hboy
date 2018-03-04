@@ -572,7 +572,6 @@ thrift协议格式
 	 * 运用maven命令，下载最新的工具，如：mvn org.apache.maven.plugins:maven-dependency-plugin:2.8:get 
 	   -DremoteRepositories=central::default::http://repo1.maven.apache.org/maven2 
 	   -Dartifact=com.facebook.swift:swift2thrift-generator-cli:RELEASE:jar:standalone -Ddest=/tmp/ 
-	 * 也可以在yy 私服中下载 : http://jrepo2.yypm.com/nexus/index.html#nexus-search;quick~swift2thrift-generator-cli
 	 * 其中-Ddest 是下载工具的目标文件夹，可自行设置。这里假设下载到/temp目录下,下载的0.12.0版本的
 
 #### 快速入门
