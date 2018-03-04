@@ -33,7 +33,7 @@ public class Constants {
 	 public static final String  MONITOR_KEY                        = "monitor";
 	 
 	 public enum ServiceProtocolType{
-		thrift,YY,HTTP;
+		thrift,HTTP;
 	}
 	 
 	 

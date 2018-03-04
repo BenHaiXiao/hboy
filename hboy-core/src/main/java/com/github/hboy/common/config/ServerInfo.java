@@ -4,6 +4,7 @@ package com.github.hboy.common.config;
  * @author xiaobenhai
  * Date: 2016/3/26
  * Time: 12:28
+ *
  */
 public class ServerInfo {
 	
@@ -11,7 +12,7 @@ public class ServerInfo {
 
 	protected  int port;		//端口
 	
-	protected String interfaceName;
+	protected String interfaceName;  //接口名称
 	
 	protected int timeout = 3000;			//超时时间
     
