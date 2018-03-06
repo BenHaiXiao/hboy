@@ -26,7 +26,7 @@ public class Server {
 		public void startServer(String host) {
 				CenterConfig centerConfig = new CenterConfig(
 						"172.27.137.12:2181");
-				centerConfig.setApplication("test");
+				centerConfig.setApplication("test1");
 				ExportConfig exportConfig = new ExportConfig();
 				exportConfig.setHost(host);
 				exportConfig.setPort(8186);
