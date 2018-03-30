@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="hboy-web:war">
+    <output-path>$PROJECT_DIR$/hboy-web/target</output-path>
+    <root id="archive" name="hboy-web-0.0.1.war">
+      <element id="artifact" artifact-name="hboy-web:war exploded" />
+    </root>
+  </artifact>
+</component>

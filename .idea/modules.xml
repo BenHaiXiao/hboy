@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/hboy.iml" filepath="$PROJECT_DIR$/hboy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hboy-core/hboy-core.iml" filepath="$PROJECT_DIR$/hboy-core/hboy-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hboy-web/hboy-web.iml" filepath="$PROJECT_DIR$/hboy-web/hboy-web.iml" />
+    </modules>
+  </component>
+</project>
