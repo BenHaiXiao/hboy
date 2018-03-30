@@ -26,7 +26,7 @@ public class ZookeeperClientTest {
 	//172.19.103.104:2181,172.19.103.102:2181,172.19.103.102:2182
 	@Before
 	public void before(){
-		url.setSubscribeAddress("172.27.137.12:2181");
+		url.setSubscribeAddress("127.0.0.1:2181");
 		client =  new ZookeeperClient(url);
 		client.connect();
 		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);

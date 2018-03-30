@@ -20,7 +20,7 @@
 		<servlet.version>3.0.1</servlet.version>
 		<thrift.version>0.6.1</thrift.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk.version>1.6</jdk.version>
+		<jdk.version>1.7</jdk.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -28,10 +28,6 @@
 			<artifactId>netty</artifactId>
 			<version>3.2.5.Final</version>
 		</dependency>
-		<dependency>
-				<groupId>com.yy.cs</groupId>
-				<artifactId>yy-codec</artifactId>
-			</dependency>
 		<dependency>
 		  <groupId>com.facebook.swift</groupId>
 		  <artifactId>swift-codec</artifactId>
@@ -129,8 +125,8 @@
 			</exclusions>
 		</dependency> 
 		</dependencies>
-		<build>
-	<plugins>
+	<build>
+	   <plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>

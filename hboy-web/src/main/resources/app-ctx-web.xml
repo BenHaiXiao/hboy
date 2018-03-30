@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+		<context:annotation-config />
+		<context:component-scan base-package="com.github.hboy">
+			<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		</context:component-scan>
+        <bean  class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+        <bean  class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+		
+		 <!-- ViewResolver -->
+        <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+                <property name="prefix" value="/WEB-INF/views/"/>
+                <property name="suffix" value=".jsp" />
+                <property name="order" value="2"></property>
+        </bean>
+        
+        <bean id="velocityConfig"
+			class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+			<property name="resourceLoaderPath" value="/WEB-INF">
+			</property>
+			<property name="velocityProperties">
+				<props>
+					<prop key="input.encoding">utf-8</prop>
+					<prop key="output.encoding">utf-8</prop>
+					<prop key="contentType">text/html;charset=UTF-8</prop>  
+				</props>
+			</property>
+		</bean>
+        
+		<bean id="viewResolver"
+			class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+			<property name="cache" value="true" />
+			<property name="prefix" value="/monitor/" />
+			<property name="suffix" value=".vm" />
+			<property name="contentType">
+				<value>text/html; charset=utf-8</value>
+			</property>
+			<property name="order" value="1"></property>
+		</bean>
+
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="300"/>
+		<property name="maxIdle" value="200"/>
+		<property name="minIdle" value="20"/>
+		<property name="maxWaitMillis" value="5000"/>
+		<property name="testOnBorrow" value="true"/>
+		<property name="testOnReturn" value="false"/>
+	</bean>
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="poolConfig"/>
+		<constructor-arg index="1" value="172.27.137.12" />
+		<constructor-arg index="2" value="6381" />
+	</bean>
+	<bean class="com.github.zkclient.ZkClient">
+		<constructor-arg index="0" type="String" value="127.0.0.1:2181" />
+	</bean>
+	<context:property-placeholder location="classpath*:app-ctx-web.properties" />
+
+
+</beans>

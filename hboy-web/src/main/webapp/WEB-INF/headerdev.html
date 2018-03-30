@@ -1,0 +1,77 @@
+<div class="navbar-inner">
+            <div class="container-fluid">
+                <!-- BEGIN LOGO -->
+               <a class="brand" href="/login.do">
+                    <img width="30" height="30" src="http://s1.yy.com/sysop_fed_lib/assets/img/ico.png" alt="logo">
+                    <span>集线塔管理中心</span>
+                </a>
+                <!-- END LOGO -->
+				<!-- BEGIN 水平菜单 -->
+				<div class="navbar hor-menu hidden-phone hidden-tablet">
+					<div class="navbar-inner">
+						<ul class="nav" id="jxt_menunav">
+							<li id="jxt_navmenu_home">
+								<a href="/home.do">
+								首页
+								<span class="selected"></span>
+								</a>
+							</li>
+							<li id="jxt_navmenu_system">
+								<a href="/system.do">
+								系统管理
+								<span class="selected"></span>
+								</a>
+							</li>
+						    <li id="jxt_navmenu_monitor">
+								<a href="/monitor/applist.do">
+								监控中心
+								<span class="selected"></span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>            
+                <ul class="nav pull-right">
+                    <!-- BEGIN 下拉通知中心 -->   
+                    <li class="dropdown" id="header_notification_bar"  style="display:none;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="icon-warning-sign"></i>
+                        <span class="badge">8</span>
+                        </a>
+                    
+                    </li>
+                    <!-- END 下拉通知中心 -->
+                                  
+                    <!-- BEGIN 用户信息 -->
+                    <li class="dropdown user">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <img width="28" height="28" alt="" src="http://s1.yy.com/sysop_fed_lib/assets/img/cat.jpg">
+                        <span class="username" id="userInfo"></span>
+                     	<i class="icon-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- <li><a href="#"><i class="icon-user"></i> 资料</a></li> -->
+                            <li><a href="#"><i class="icon-map-marker"></i> <span id="serverIps"></span></a></li>
+                            <li><a href="javascript:;" id="trigger_fullscreen"><i class="icon-move"></i> 全屏</a></li>
+                            <li><a href="javascript:deleteCookie();"><i class="icon-key"></i> 退出</a></li>
+                        </ul>
+                    </li>
+                    <!-- END 用户信息 -->
+                    <!-- BEGIN 快速通道 -->
+                    <li class="dropdown quick-launcher" style="display:none;">
+                        <a href=".#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <span>快速通道</span>
+                            <i class="icon-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="icon-calendar"></i> 发布系统</a></li>
+                            <li><a href="#"><i class="icon-lock"></i> 发布系统</a></li>
+                            <li><a href="#"><i class="icon-envelope"></i> 发布系统</a></li>
+                            <li><a href="#"><i class="icon-tasks"></i> 发布系统</a></li>
+                        </ul>
+                    </li>
+                    <!-- END 快速通道 -->
+                </ul>
+                <!-- END 导航条右侧菜单 --> 
+            </div>
+        </div>

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	
+	#include("/views/head.html")
+	<body class="page-header-fixed page-full-width">
+    <!-- BEGIN 页面头部 -->   
+    <div class="header navbar navbar-inverse navbar-fixed-top">
+        <!-- BEGIN 顶部导航条 -->
+        #include("/views/headerdev.html")
+        <!-- END 顶部导航条 -->
+    </div>
+		<!-- BEGIN 页面主容器 -->
+	<div class="page-container row-fluid">
+		<!-- BEGIN PAGE -->
+		<div class="page-content" id="page-content">
+			<!-- BEGIN 右边容器-->
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div id="jxt-container-center" style="width:50%;margin-left:auto;margin-right:auto;display:block">
+                		<div class="span12" style="margin-left:0" id="jxt-container-applist">
+                			<div class="portlet box blue">
+                				<div class="portlet-title">
+                					<div class="caption"><i class="error"></i>
+									<a href="javascript:void(0);" onclick="queryServiceMonitorList('$!appName','$!isClient')">
+										$!appName  (   
+										#if($isClient) 
+											客户端  $!serviceName )  
+										#else 
+											服务端  $!serviceName )
+										#end
+                                    </a>
+									</div>
+                				</div>
+                				<div class="portlet-body">
+                					<div id="sample_2_wrapper_app" class="dataTables_wrapper form-inline" role="grid">
+                						<div class="dataTables_scroll">
+                							<div class="dataTables_scrollBody" style="overflow: auto; width: 100%;">
+                								<table class="table table-bordered table-hover" id="appListTable" >
+                									<thead>
+                										<tr>
+                											<td style="text-align:center;line-height:10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb">执行耗时</td>
+                											<td style="text-align:center;line-height:10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb">输入参数</td>
+															<td style="text-align:center;line-height:10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb">异常信息</td>
+															<td style="text-align:center;line-height:10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb">异常时间点</td>
+                										</tr>
+                									</thead>
+													<tbody id="$!serviceName" style="border-top:1px solid #ebebeb" >
+														#foreach($exceptionRecord in $exceptionRecordList)
+															<tr class="info">  
+                                                             <td>$!exceptionRecord.elapsed</td>  
+                                                             <td style="vertical-align:middle;width:300px;word-wrap:break-word;word-break:break-all;">$!exceptionRecord.input</td>  
+                                                             <td style="vertical-align:middle;width:500px;word-wrap:break-word;word-break:break-all;">$!exceptionRecord.exception</td>
+    														 <td>$!exceptionRecord.timePoint</td>
+                                                             </tr> 
+														#end	
+                									</tbody>
+                								</table>
+                							</div>
+                						</div>
+                					</div>
+                				</div>
+                			</div>
+                		</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<form id="queryServiceMonitorform" method="post" action="/monitor/queryServiceMonitorList.do" >
+		<input type="hidden" id="appName" name="appName" value="" >
+		<input type="hidden" id="isClient" name="isClient" value="" >
+	</form>
+	<script>
+		$(document).ready(function(){
+			$.ajaxSetup({
+				type: "POST",
+				timeout:1000*60*10
+			});
+			//运维组件初始化
+            App.init();
+			menu("monitor");
+			loadUserInfo();
+            loadServerIp();
+		});
+		function queryServiceMonitorList(appName,isClient){
+			
+			$("#appName").val(appName);// = appName;
+			$("#isClient").val(isClient);// = isClient;
+			$("#queryServiceMonitorform").submit();
+		}
+		
+		
+    </script>
+  </body>
+</html>

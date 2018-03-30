@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	
+	#include("/views/head.html")
+	<body class="page-header-fixed page-full-width">
+    <!-- BEGIN 页面头部 -->   
+    <div class="header navbar navbar-inverse navbar-fixed-top">
+        <!-- BEGIN 顶部导航条 -->
+        #include("/views/headerdev.html")
+        <!-- END 顶部导航条 -->
+    </div>
+		<!-- BEGIN 页面主容器 -->
+	<div class="page-container row-fluid">
+		<!-- BEGIN PAGE -->
+		<div class="page-content" id="page-content">
+			<!-- BEGIN 右边容器-->
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div id="jxt-container-center" style="width:50%;margin-left:auto;margin-right:auto;display:block">
+                		<div class="span12" style="margin-left:0" id="jxt-container-applist">
+                			<div class="portlet box blue">
+                				<div class="portlet-title">
+                					<div class="caption"><i class="error">
+										$appName  (   
+										#if($isClient) 
+											客户端)  
+										#else 
+											服务端)
+										#end
+										</i>
+									</div>
+                				</div>
+                				<div class="portlet-body">
+                					<div id="sample_2_wrapper_app" class="dataTables_wrapper form-inline" role="grid">
+                						<div class="dataTables_scroll">
+                							<div class="dataTables_scrollBody" style="overflow: auto; width: 100%;">
+                								<table class="table table-bordered table-hover" id="appListTable" >
+                									<thead>
+                										<tr>
+                											<td style="text-align:center;line-height:10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb">接口名称</td>
+                											<td style="text-align:center;line-height:10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb">IP</td>
+															<td style="text-align:center;line-height:10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb">TPS</td>
+															<td style="text-align:center;line-height:10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb">平均耗时</td>
+															<td style="text-align:center;line-height:10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb">最大耗时</td>
+															<td style="text-align:center;line-height:10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb">最小耗时</td>
+															<td style="text-align:center;line-height:10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb">成功次数</td>
+															<td style="text-align:center;line-height:10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb">失败次数</td>
+															<td style="text-align:center;line-height:10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb">成功率</td>
+															<td style="text-align:center;line-height:10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb">详情</td>
+                										</tr>
+                									</thead>
+													#foreach($serviceName in $serviceMointorMap.keySet())
+													<tbody id="$serviceName" style="border-top:1px solid #ebebeb" >
+														#foreach($monitoringRecord in $serviceMointorMap.get($!serviceName))
+															<tr class="info">  
+															#if($velocityCount == 1)
+																#set($size = $serviceMointorMap.get($!serviceName).size())
+																<td style="vertical-align:middle;width:150px;word-wrap:break-word;word-break:break-all;" rowspan=$size >$serviceName</td>
+															#end
+															#if($isClient)
+                                                              <td>$!monitoringRecord.localAddress -->  $!monitoringRecord.remoteAddress</td>  
+															#else
+															  <td>$!monitoringRecord.remoteAddress -->  $!monitoringRecord.localAddress</td>  
+															#end
+                                                             <td>$!monitoringRecord.tps</td>  
+                                                             <td>$!monitoringRecord.averElapsed</td>  
+                                                             <td>$!monitoringRecord.maxElapsed</td>
+    														 <td>$!monitoringRecord.minElapsed</td>
+    														 <td>$!monitoringRecord.successNums</td>
+    														 <td>$!monitoringRecord.failureNums</td>
+    														 <td>$!monitoringRecord.successRate</td>
+															 <td> <a href="javascript:void(0);" onclick="queryFailureMessage('$!appName','$!isClient','$!serviceName','$!monitoringRecord.localAddress','$!monitoringRecord.remoteAddress','$!monitoringRecord.periodStart','$!monitoringRecord.periodEnd')">错误详细信息</a></td>
+                                                             </tr> 
+														#end	
+                									</tbody>
+													#end
+                								</table>
+                							</div>
+                						</div>
+                					</div>
+                				</div>
+                			</div>
+                		</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<form id="queryFailureMessageform" method="post" action="/monitor/queryFailureMessage.do" >
+		<input type="hidden" id="appName" name="appName" value="" >
+		<input type="hidden" id="isClient" name="isClient" value="" >
+		<input type="hidden" id="serviceName" name="serviceName" value="" >
+		<input type="hidden" id="localAddress" name="localAddress" value="" >
+		<input type="hidden" id="remoteAddress" name="remoteAddress" value="" >
+		<input type="hidden" id="periodStart" name="periodStart" value="" >
+		<input type="hidden" id="periodEnd" name="periodEnd" value="" >
+	</form>
+	<script>
+		$(document).ready(function(){
+			$.ajaxSetup({
+				type: "POST",
+				timeout:1000*60*10
+			});
+			//运维组件初始化
+            App.init();
+			menu("monitor");
+			loadUserInfo();
+            loadServerIp();
+		});
+		
+		function queryFailureMessage(appName,isClient,serviceName,localAddress,remoteAddress,periodStart,periodEnd){
+			
+			$("#appName").val(appName); 
+			$("#isClient").val(isClient); 
+			$("#serviceName").val(serviceName); 
+			$("#localAddress").val(localAddress); 
+			$("#remoteAddress").val(remoteAddress); 
+			$("#periodStart").val(periodStart);
+			$("#periodEnd").val(periodEnd);
+			$("#queryFailureMessageform").submit();
+		}
+		
+    </script>
+  </body>
+</html>
